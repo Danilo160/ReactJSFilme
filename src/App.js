@@ -40,7 +40,7 @@ function App() {
   //Função que acessa a API sem indicar um parâmetro de linguagem e retorna as informações definidas na linguagem disponível
   
   function Language(id){
-    axios(apiurl + "/movie/" + id + apikey.replace("/","")).then(({ data }) => {
+    axios.get(apiurl + "/movie/" + id + apikey.replace("/","")).then(({ data }) => {
       let result = data;
 
       if (result.overview==="" || result.overview===null){
@@ -60,7 +60,7 @@ function App() {
       });
       document.body.style.overflow = "hidden"
 
-      axios(apiurl + "/movie/" + id + "/credits" + apikey.replace("/","")).then(({ data }) => {
+      axios.get(apiurl + "/movie/" + id + "/credits" + apikey.replace("/","")).then(({ data }) => {
 
         let res = data.crew;
         let directors = [];
@@ -97,7 +97,7 @@ function App() {
   var notf = document.getElementById("notfound")
   
       if(state.s.trim()===""){
-        axios(apiurl + "/movie" + popular + apikey).then(({ data }) => {
+        axios.get(apiurl + "/movie" + popular + apikey).then(({ data }) => {
           let results = data.results;
 
           setState(prevState => {
@@ -115,7 +115,7 @@ function App() {
       }
     
       if (state.s.trim()!=="") {
-        axios(apiurl + searchmovie + apikey+"&query=" + state.s.trim()).then(({ data }) => {
+        axios.get(apiurl + searchmovie + apikey+"&query=" + state.s.trim()).then(({ data }) => {
           let results = data.results;
           
           setState(prevState => {
@@ -176,7 +176,7 @@ function App() {
   }
 
   const openPopup = id => {
-    axios(apiurl + "/movie/" + id + apikey.replace("/","") + "&language=pt-BR").then(({ data }) => {
+    axios.get(apiurl + "/movie/" + id + apikey.replace("/","") + "&language=pt-BR").then(({ data }) => {
       let result = data;
 
       if (result.overview==="" || result.overview===null){
@@ -198,7 +198,7 @@ function App() {
       
       document.body.style.overflow = "hidden"
 
-      axios(apiurl + "/movie/" + id + "/credits" + apikey.replace("/","")).then(({ data }) => {
+      axios.get(apiurl + "/movie/" + id + "/credits" + apikey.replace("/","")).then(({ data }) => {
 
         let res = data.crew;
         let directors = [];
