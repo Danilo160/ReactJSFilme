@@ -6,7 +6,7 @@ app.use(cors());
 app.use('/src', express.static(__dirname+'/src/'));
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname+'/src/index.js');
+    res.sendFile(__dirname+'./build');
 });
 
 app.listen(process.env.PORT || 3000, () => {
