@@ -239,7 +239,6 @@ function App() {
   return (
     <div className="App">
       <header>
-	<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <h1>React Filmes</h1>
       </header>
       <main>
