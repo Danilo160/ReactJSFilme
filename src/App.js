@@ -20,7 +20,6 @@ const configs = {
 
 const { apiurl, apikey } = configs;
 
-
 function App() {
   const [state, setState] = useState({
     s: "",
@@ -43,6 +42,12 @@ function App() {
 
   function OverflowOn(){
     document.body.style.overflow = "visible"
+  }
+ 
+  //Verifica se o estado dos resultados é maior do que 0 e altera os displays
+  if (state.results.length > 0){
+          divref.current.style.display = "none";
+          sectionref.current.style.display = "flex";
   }
 
   //Função que acessa a API sem indicar um parâmetro de linguagem e retorna as informações definidas na linguagem disponível
@@ -96,15 +101,8 @@ function App() {
 
   useEffect(()=>{
 
-     //Verifica se o estado dos resultados é maior do que 0 e altera os displays
-      
-      if (state.results.length > 0){
-          divref.current.style.display = "none";
-          sectionref.current.style.display = "flex";
-      }
-  
-      if(state.s.trim()===""){
-        axios.get(`${apiurl}/movie/popular?api_key=${apikey}`).then(({ data }) => {
+    if(state.s.trim()===""){
+      axios.get(`${apiurl}/movie/popular?api_key=${apikey}`).then(({ data }) => {
           let results = data.results;
 
           setState(prevState => {
@@ -119,17 +117,17 @@ function App() {
           alert("Sem conexão! API falhou ou não há conexão com a internet!")
 
         })
-      }
-    
-      if (state.s.trim()!=="") {
+    }
+
+    if (state.s.trim()!=="") {
         axios.get(`${apiurl}/search/movie?query=${state.s.trim()}&api_key=${apikey}`).then(({ data }) => {
           let results = data.results;
-          
+
           setState(prevState => {
             return { ...prevState, results: results }
 
           })
-
+          
           if(results.length === 0){
             imgref.current.src = notsearch
             divref.current.style.display = "block"
@@ -148,8 +146,7 @@ function App() {
 
       }
 
-  },[state])
-
+  },[state.s])
 
  
   const handleInput = (e)=>{
